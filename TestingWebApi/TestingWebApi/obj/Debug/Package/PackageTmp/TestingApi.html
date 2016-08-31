@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+    <h2>All Customers</h2>
+    <ul id="customers" />
+  </div>
+  <div>
+    <h2>Search customer by ID</h2>
+    <input type="text" id="custId" size="5" />
+    <input type="button" value="Search" onclick="return find();" />
+    <p id="customer" />
+  </div>
+    <div>
+    <h2>Search customer</h2>
+    <input type="text" id="searchText" size="5" />
+    <input type="button" value="Search" onclick="return SearchThroughName();" />
+    <p id="searchedCustomer" />
+  </div>
+     <div>
+    <h2>Search customer by Age</h2>
+    <input type="text" id="age" size="5" />
+    <input type="button" value="Search" onclick="return SearchThroughAge();" />
+    <p id="AgeCustomer" />
+  </div>
+
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+  <script>
+      var uri = 'api/First';
+
+      $(document).ready(function () {
+          TryParseRest();
+          // Send an AJAX request
+          $.getJSON(uri)
+              .done(function (data) {
+                  // On success, 'data' contains a list of products.
+                  $.each(data, function (key, item) {
+                      // Add a list item for the product.
+                      $('<li>', { text: formatItem(item) }).appendTo($('#customers'));
+                  });
+              });
+      });
+
+      function formatItem(item) {
+          if(item.Age>30)
+              return item.Name + ': Age :' + item.Age + '- Aeee Budhan..!!';
+          else
+              return item.Name + ': Age :' + item.Age;
+      }
+      function TryParseRest() {
+          debugger;
+          var attribUri = 'Telephony/DialWhomNumber?To=01133138966';
+          var attribUri2 = 'customers/TryParse';
+          $.getJSON(attribUri2)
+              .done(function (data) {
+                  alert('Inside parse success.');
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  alert('Inside parse fail.');
+              });
+      }
+      function SearchThroughName() {
+          var attribUri = 'customers/Name';
+          var text = $('#searchText').val();
+          $.getJSON(attribUri + '/' + text)
+              .done(function (data) {
+                  $('#searchedCustomer').text(formatItem(data));
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  $('#searchedCustomer').text('Error: ' + err);
+              });
+
+      }
+      function SearchThroughAge() {
+          var attribUri = 'customers/Age';
+          var age = $('#age').val();
+          $.getJSON(attribUri + '?Age=' + age)
+              .done(function (data) {
+                  $('#AgeCustomer').text(formatItem(data));
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  $('#AgeCustomer').text('Error: ' + err);
+              });
+
+      }
+      function find() {
+          var id = $('#custId').val();
+          $.getJSON(uri + '/' + id)
+              .done(function (data) {
+                  $('#customer').text(formatItem(data));
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  $('#customer').text('Error: ' + err);
+              });
+      }
+  </script>
+</body>
+</html>

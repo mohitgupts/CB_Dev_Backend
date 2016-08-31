@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    
+       <div>CallSid: <input type="text" id="callSid" /></div>
+        <div>From: <input type="text" id="from" /></div>
+        <div>To:<input type="text" id="to" /></div>
+        <div>Direction:<input type="text" id="direction" /></div>
+        <div>DialCallDuration:<input type="text" id="dialCallDuration" /></div>
+        <div>StartTime: <input type="text" id="startTime" /></div>
+        <div>EndTime: <input type="text" id="endTime" /></div>
+        <div>CallType: <input type="text" id="callType" /></div>
+        <div>DialWhomNumber: <input type="text" id="dialWhomNumber" /></div>
+        <div>FlowId: <input type="text" id="flowId" /></div>
+        <div>TenantId:<input type="text" id="tenantId" /></div>
+        <div>CallFrom: <input type="text" id="callFrom" /></div>
+        <div>CallTo: <input type="text" id="callTo" /></div>
+        <div>ForwardedFrom: <input type="text" id="forwardedFrom" /></div>
+    <div><input type="button" value="Start" onclick="return StartExoCall();" /></div>
+    <div><input type="button" value="End" onclick="return EndExoCall();" /></div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+  <script>
+      function StartExoCall() {
+          var attribUri = 'Telephony/ExoCallStart?';
+          var var1 = $('#callSid').val();
+          var var2 = $('#from').val();
+          var var3 = $('#to').val();
+          var var4 = $('#direction').val();
+          var var5 = $('#dialCallDuration').val();
+          var var6 = $('#startTime').val();
+          var var7 = $('#endTime').val();
+          var var8 = $('#callType').val();
+          var var9 = $('#dialWhomNumber').val();
+          var var10 = $('#flowId').val();
+          var var11 = $('#tenantId').val();
+          var var12 = $('#callFrom').val();
+          var var13 = $('#callTo').val();
+          var var14 = $('#forwardedFrom').val();
+          var queryParams = 'CallSid=' + var1 + '&From=' + var2 + '&To=' + var3 + '&Direction=' + var4 + '&DialCallDuration=' + var5 + '&StartTime=' + var6 + '&EndTime=' + var7 + '&CallType=' + var8 + '&flow_id=' + var10 + '&tenant_id=' + var11 + '&CallFrom=' + var12 + '&CallTo=' + var13 + '&ForwardedFrom=' + var14;
+
+          $.getJSON(attribUri + queryParams)
+              .done(function (data) {
+                  alert('Exo saved.');
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  alert('Exo failed.');
+              });
+
+      }
+      function EndExoCall() {
+          var attribUri = 'Telephony/ExoCallEnd?';
+          var var1 = $('#callSid').val();
+          var var2 = $('#from').val();
+          var var3 = $('#to').val();
+          var var4 = $('#direction').val();
+          var var5 = $('#dialCallDuration').val();
+          var var6 = $('#startTime').val();
+          var var7 = $('#endTime').val();
+          var var8 = $('#callType').val();
+          var var9 = $('#dialWhomNumber').val();
+          var var10 = $('#flowId').val();
+          var var11 = $('#tenantId').val();
+          var var12 = $('#callFrom').val();
+          var var13 = $('#callTo').val();
+          var var14 = $('#forwardedFrom').val();
+          var queryParams = 'CallSid=' + var1 + '&From=' + var2 + '&To=' + var3 + '&Direction=' + var4 + '&DialCallDuration=' + var5 + '&StartTime=' + var6 + '&EndTime=' + var7 + '&CallType=' + var8 + '&DialWhomNumber=' + var9 + '&flow_id=' + var10 + '&tenant_id=' + var11 + '&CallFrom=' + var12 + '&CallTo=' + var13 + '&ForwardedFrom=' + var14;
+
+          $.getJSON(attribUri + queryParams)
+              .done(function (data) {
+                  alert('Exo saved.');
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  alert('Exo failed.');
+              });
+
+      }
+  </script>
+</body>
+</html>
